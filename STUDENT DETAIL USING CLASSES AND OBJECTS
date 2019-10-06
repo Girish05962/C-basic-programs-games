@@ -1,0 +1,92 @@
+include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+
+class student
+{ int rollno;
+char name[25];
+float marks;
+char grade;
+public:
+void readstudent()
+{cout<<"\nEnter roll no: ";cin>>rollno;
+ cout<<"Enter name : ";gets(name);
+ cout<<"Enter marks:";cin>>marks;
+}
+void dispstudent()
+{ calcGrade();
+ cout<<"Roll no :"<<rollno;
+ cout<<"Name :"<<name;
+ cout<<"Marks :"<<marks;
+ cout<<"Grade :"<<grade;
+}
+int getrollno()
+{ return rollno; }
+float getmarks()
+{ return marks; }
+void calcGrade()
+{ if(marks>=75)
+  grade='A';
+  else if(marks>=60)
+  grade='B';
+  else if(marks>=50)
+  grade='C';
+  else
+  grade='F';
+}
+};
+void main()
+{
+ clrscr();
+student XIIA[10];
+int n;
+cout<<"\tSTUDENT DETAIL USING CLASSES AND OBJECTS "<<endl;
+cout<<"\nEnter the no.of student : ";
+cin>>n;
+for(int i=0;i<n;i++)
+{
+ cout<<"\nEnter the student's details:"<<i+1<<":";
+ XIIA[i].readstudent();
+}
+int choice,rno,pos=-1,highmarks=0;
+do{ clrscr();
+cout<<"\tSTUDENT DETAIL USING CLASSES AND OBJECTS ";
+cout<<"\n\nMAIN MENU\n";
+cout<<"1.Specific student \n";
+cout<<"2.Topper\n";
+cout<<"3.Exit\n";
+cout<<"\nEnter your choice(1-3) : ";
+cin>>choice;
+switch(choice)
+{case 1:
+cout<<"\nEnter rollno of student whose details you want to see : ";
+cin>>rno;
+for(int i=0;i<n;++i)
+{
+if(XIIA[i].getrollno()==rno)
+{
+XIIA[i].dispstudent();
+break;
+}
+}
+if(i==n)
+cout<<"\nINVALID ROLLNO!!!\n";
+getch();
+break;
+case 2:
+for(i=0;i<n;i++)
+{ if(XIIA[i].getmarks()>highmarks)
+{ pos=i;
+highmarks=XIIA[i].getmarks();
+}
+XIIA[pos].dispstudent();
+getch();
+break;
+case 3:break;
+default:
+cout<<"\nWrong choice !!\n";
+break;
+}
+}
+}while(choice>=1&&choice<3);
+}
