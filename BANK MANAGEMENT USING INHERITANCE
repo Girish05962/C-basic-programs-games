@@ -1,0 +1,93 @@
+#include<stdio.h>
+#include<conio.h>
+#include<iostream.h>
+
+class account
+{
+char name[100],acc_no[20];
+protected:
+double bal;
+public:
+void in()
+{cout<<"NAME:";gets(name);
+cout<<"Account number:";cin>>acc_no;
+cout<<"Balance:";cin>>bal;
+}
+void disp()
+{cout<<"\nBalance:"<<bal;}
+};
+class current:public account
+{ double charge,minbal,amt;
+protected:
+void calc()
+{ if(bal-amt>minbal)
+ bal=bal-charge;
+else
+cout<<"Balance is low";
+}
+public:
+current()
+{
+minbal=100;charge=50;}
+void check()
+{cout<<"Enter the amount to be drawn through cheque:";
+cin>>amt;
+if(bal-amt>=0)
+bal=bal-amt;
+else
+cout<<"You do not have enough amount";
+calc();
+}
+};
+class savings:public account
+{ double at;
+void interest()
+{float n,r;
+cout<<"Enter number of years:";cin>>n;
+cout<<"Enter rate of interest:";cin>>r;
+bal=bal+(bal*n*r)/100;
+}
+public:
+void update()
+{char ch;
+cout<<"Do you want to withdraw or deposit(type 'w' to withdraw or type 'd' to deposit):";
+cin>>ch;
+if(ch=='d')
+{cout<<"Enter amount:";
+ cin>>at;
+bal+=at;
+interest();
+}
+if(ch=='w')
+{cout<<"Enter the amount to be drawn:";
+cin>>at;
+if(bal-at>=0)
+bal-=at;
+else
+cout<<"You dont have enough amount";
+}
+if(ch!='d'&&ch!='w')
+cout<<"Wrong option";
+}
+};
+void main()
+{clrscr();
+cout<<"\t\tINHERITANCE NBANKING \n";
+savings x;current y;char ch;
+cout<<"\nEnter the type of account(c/s):";
+cin>>ch;
+if(ch=='c')
+{y.in();
+ y.check();
+y.disp();
+}
+else if(ch=='s')
+{x.in();
+x.update();
+x.disp();
+}
+else
+cout<<"Wrong option";
+getch();
+}
+
