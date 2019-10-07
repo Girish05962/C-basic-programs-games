@@ -1,0 +1,95 @@
+#include<iostream.h>
+#include<conio.h>
+
+void disp(int queue[],int n,int front, int rear)
+{ cout<<"Queue status:"<<endl;
+if(rear>=front)
+for(int i=front; i<=rear; i++)
+if(i==front && i==rear)
+cout<<">>>"<<queue[i]<<"<<<";
+else if(i==front)
+cout<<">>>"<<queue[i];
+else if(i==rear)
+cout<<"<--"<<queue[i]<<"<<<";
+else
+cout<<"<--"<<queue[i];
+else
+{
+for(int i=front; i<n;i++)
+{ if(i==front)
+cout<<">>>"<<queue[i];
+cout<<queue[i]<<queue[i];
+cout<<queue[i]<<"<-- \n";
+}
+for(i=0;i<=rear;i++)
+{ if(i==rear)
+cout<<queue[i]<<"<<<";
+cout<<queue[i]<<"<-- \n";
+}
+}
+}
+void insert(int queue[],int n,int &front,int &rear)
+{ char ch='y';
+int item;
+while(ch=='y')
+{ cout<<"Enter the element to be insert into the circular queue:\n";
+cin>>item;
+if((front==0&&rear==n-1)||(front==rear+1&&rear!=-1))
+{ cout<<"overflow"<<endl;
+break;}
+else if(rear==n-1)
+{ rear=0;
+queue[rear]=item;
+}
+else if(rear==-1&&front==-1)
+{ rear++;
+queue[rear]=item;
+}
+else
+{ rear++; queue[rear]=item; }
+disp(queue,n,front,rear);
+cout<<"Do you want to continueinsert(y/n)::\n";
+cin>>ch;
+}
+}
+void del(int queue[],int n,int&front, int &rear)
+{ char ch='y';int temp=-1;
+while(ch=='y')
+{ if(rear==-1)
+{ cout<<"underflow!!!"<<endl;temp++;}
+else if(rear==front)
+{ rear=front=-1;cout<<">>>!!!<<<";temp++;}
+else if(front==n-1&&rear!=-1)
+front=0;
+else front++;
+if(temp==-1)
+disp(queue,n,front,rear);
+else
+break;
+cout<<"Do you want to continue to delete:";
+cin>>ch;
+} }
+void main()
+{ clrscr();
+cout<<"\t\t INSERT AND DELETE OPERATIONS ON A CIRCULAR QUEUE\n";
+int queue[100],n,front=0,rear=-1;
+cout<<"Enter the number of elements in the queue:";
+cin>>n;
+char ch='s';
+while(ch!='x')
+{ cout<<"Do you want to insert or delete\n(type'i' to insert, 'd' to delete and type 'x' to exit):";
+cin>>ch;
+if(ch=='i')
+{ cout<<"INSERT"<<endl;
+insert(queue,n,front,rear);
+}
+else if(ch=='d')
+{ cout<<"DELETE"<<endl;
+del(queue,n,front,rear);
+}
+else if(ch=='x')
+break;
+else
+cout<<"OPTION INCORRECT\a";
+getch();
+}}
