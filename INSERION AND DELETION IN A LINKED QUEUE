@@ -1,0 +1,67 @@
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+
+struct NODE
+{ int info;
+NODE*next;
+}*front,*rear,*newptr,*ptr;
+NODE *create_new_node(int n)
+{ ptr= new NODE;
+ptr->info =n;
+ptr->next=NULL;
+return ptr;
+}
+void INSERT(NODE*np)
+{ if(front==NULL)
+front=rear=np;
+else
+{ rear->next=np;
+rear=np;
+}
+}
+void DELETE()
+{ if(front==NULL)
+cout<<"Underflow!!!\n";
+else
+{ ptr =front;
+front =front-> next;
+delete ptr;
+}
+}
+ void display(NODE*np)
+ { while(np !=NULL)
+ { cout<<np->info<<"-->";
+ np=np->next;
+ }
+ cout<<"!!!\n";
+ }
+ void main()
+ { int inf;char ch='y';
+ rear=front=NULL;clrscr();
+ cout<<"\t\t INSERTION AND DELETION INA LINKED QUEUE";
+ while(ch=='y'||ch=='Y')
+ { cout<<" \nenter the information..";
+ cin>>inf;
+ newptr =create_new_node(inf);
+ if(newptr==NULL)
+ { cout<<"cannot create new node!!!Aborting!!\n";
+ exit(0);
+ }
+ INSERT(newptr);
+ cout<<"\n Press Y to enter more nodes,N to exit..";
+ cin>>ch;
+ }
+ clrscr();
+ char ch1='y';
+ do
+ { cout<<"\n The linked queue is(Front..to..rear): \n";
+ display(front);
+ cout<<"wnat to delete first node?:";
+ cin>>ch1;
+ if(ch1=='y'||ch1=='Y')
+ DELETE();
+ }
+ while(ch1=='y'||ch=='Y');
+ getch();
+ }
