@@ -1,0 +1,50 @@
+
+
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+
+void display(int stack[],int top);
+void Ins(int stack[],int size,int top)
+{ char ch;
+int item;
+cout<<"Do you want to insertt an elemnt into the stack:(y/n)??"<<endl;
+cin>>ch;
+while(ch=='y')
+{ if(top==size-1)
+{ cout<<"overflow!!!";
+getch();
+exit(0);
+}
+else
+{ top++;
+cout<<"Enter the item:";
+cin>>item;
+stack[top]=item;
+}
+display(stack,top);
+cout<<"Do you want want to insert??"<<endl;
+cin>>ch;
+}
+}
+void display(int stack[],int top)
+{ cout<<"stack status:"<<endl;
+for(int i=top;i>=0;i--)
+{
+if(i==top)
+cout<<stack[i]<<"<--"<<endl;
+}
+}
+void main()
+{
+clrscr();
+int stack[3];
+cout<<"\t\t INSERION IN A STACK AS AN ARRAY \n\n\n";
+Ins(stack,3,-1);
+getch();
+}
+
+
+
+
+
