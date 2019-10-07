@@ -1,0 +1,70 @@
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+
+void disp(int queue[],int rear,int front)
+{ for(int i=front;i<=rear;i++)
+cout<<queue[i]<<"<--";
+ cout<<endl;
+}
+void insert(int queue[],int n,int &rear,int &front)
+{ char ch='y';
+  int item;
+  while(ch=='y')
+ {
+  if(rear==n-1)
+ {  cout<<"Overflow!!"<<endl;
+ break;
+}
+  cout<<"Enter the item to be inserted : ";
+  cin>>item;
+  rear++;
+  queue[rear]=item;
+
+disp(queue,rear,front);
+ cout<<"\nDo u want to insert an element into the queue(y/n):";
+ cin>>ch;
+}
+}
+void del(int queue[],int &rear,int &front)
+{ char ch='y';
+while(ch=='y')
+ { if(front==-1 || front==rear)
+ { cout<<"Underflow!!"<<endl;
+   break;
+ }
+ else
+  front++;
+ disp(queue,rear,front);
+ cout<<"\nDo u want to delete an element into the queue(y/n):";
+ cin>>ch;
+}
+}
+void main()
+{ clrscr();
+  cout<<"\t\t DELETE OPERATIONS ON A QUEUE\n";
+ int queue[100],n,front=-1,rear=-1;
+ cout<<"Enter the number of elements in the queue:";
+  cin>>n;
+ char ch='s';
+ while(ch!='x')
+{ cout<<"\nDo you want to insert or delete(type 'i' to insert, 'd' to delete,type 'x' to exit) : ";
+ cin>>ch;
+ if(ch=='i')
+{ cout<<"\nINSERT"<<endl;
+ front=0;
+ insert(queue,n,rear,front);
+}
+else if(ch=='d')
+{ cout<<"\nDELETE"<<endl;
+del(queue,rear,front);
+}
+else if(ch=='x')
+{ getch();
+ exit(0);
+}
+else
+cout<<"OPTION INCORRECT";}
+getch();
+}
+
