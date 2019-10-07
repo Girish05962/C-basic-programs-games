@@ -1,0 +1,51 @@
+
+
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+
+struct NODE
+{
+int info;
+NODE*next;
+}*top,*newptr,*ptr;
+NODE*create_new_node(int n)
+{ ptr=new NODE;
+ptr->info=n;
+ptr->next= NULL;
+return ptr;
+}
+void PUSH(NODE*np)
+{ if(top==NULL)
+top=np;
+else
+{ np->next=top; top=np;}
+}
+void display(NODE*np)
+{ while(np!=NULL)
+{ cout<<np->info<<"-->";
+np=np->next;
+}
+cout<<"!!!\n";
+}
+void main()
+{ int inf; char ch='y';
+top= NULL;
+clrscr();
+cout<<"\t\t PUSH IN A LINKED STACK ";
+while(ch=='y'||ch=='Y')
+{ cout<<"\n enter the information..";
+cin>>inf;
+newptr=create_new_node(inf);
+if(newptr==NULL)
+{ cout<<"connat creat new node!!!Aborting!!\n";
+exit(0);
+}
+PUSH(newptr);
+cout<<"\n NOW the linked-stackis:\n";
+display(top);
+cout<<"\n Press Y to enter more nodes, N to exit..";
+cin>>ch;
+}
+getch();
+}
