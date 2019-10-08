@@ -1,0 +1,39 @@
+
+#include<iostream.h>
+#include<conio.h>
+
+void merge(int a[],int b[],int m,int n)
+{ int c[100];
+for(int i=0,j=0,k=0;k<(m+n);k++)
+if(j>=n||a[i]<b[j])
+{c[k]=a[i];
+i++;
+}
+else
+{ c[k]=b[j];
+j++;
+}
+cout<<"The merged sort :"<<endl;
+for(i=0;i<(m+n);i++)
+cout<<"Element"<<i+1<<" is: "<<c[i]<<endl;
+}
+void main()
+{ clrscr();
+int a[50],b[50],m,n;
+cout<<"\t\t MERGE SORT\n";
+cout<<"Enter the number of elements in first array:";
+cin>>m;
+cout<<"Enter the first array elements:"<<endl;
+for(int i=0;i<m;i++)
+{ cout<<"Enter "<<i+1<<" element:";
+cin>>a[i];
+}cout<<"Enter the number of elemets in second array:";
+cin>>n;
+cout<<"Enter the number of elements:"<<endl;
+for(i=0;i<n;i++)
+{cout<<"Enter "<<i+1<<" element:";
+cin>>b[i];
+}
+merge(a,b,m,n);
+getch();
+}
