@@ -1,0 +1,75 @@
+
+
+#include <iostream.h>
+#include <conio.h>
+#include <process.h>
+
+void sort(int a[],int n)
+{   int sm,pos;
+    for(int i=0;i<n;i++)
+     {  sm=a[i];
+	pos=i;
+	for(int j=i;j<n;j++)
+	 if(sm>a[j])
+      {  sm=a[j];
+	pos=j;
+      }
+  a[pos]=a[i];
+   a[i]=sm;
+}
+ cout<<"The order is : "<<endl;
+for(i=0;i<n;i++)
+    cout<<"\tElement "<<i+1<<" is :"<<a[i]<<endl;
+ }
+int search(int a[],int n,int item)
+{  int I=0,u=n-1,m=(I+u)/2;
+   while(I!=u)
+ { if(a[m]<item)
+    I=m+1;
+  else if(a[m]>item)
+   u=m-1;
+  else
+   break;
+ m=(u+I)/2;
+ }
+ if(a[m]==item)
+  return m+1;
+  else
+  return-1;
+}
+void main()
+{ clrscr();
+  int a[100],n,x;
+  char ch;
+  int choice;
+  cout<<"\t\t SORT AND SEARCH\n";
+cout<<"Enter the no.of elements : ";
+ cin>>n;
+ for(int i=0;i<n;i++)
+{ cout<<"\tEnter "<<i+1<<" element : ";
+ cin>>a[i];
+}
+do
+{ cout<<"\nMENU :\n\t1.SORT\n\t2.Search\n\t3.Exit";
+  cout<<"\nEnter your choice : ";
+ cin>>choice;
+ if(choice==1)
+ {
+  sort(a,n);
+}
+if(choice==2)
+{ cout<<"Enter the element to be searched : ";
+ cin>>x;
+ int res=search(a,n,x);
+ if(res==-1)
+ cout<<"Element not found!\n";
+ else
+ cout<<"Element found at position : "<<res<<endl;
+ }
+if(choice==3)
+ exit(0);
+ cout<<"Do u want 2 continue : ";
+ cin>>ch;
+}while(ch=='y');
+getch();
+}
