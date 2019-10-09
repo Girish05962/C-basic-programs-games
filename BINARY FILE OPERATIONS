@@ -1,0 +1,62 @@
+ .
+
+#include<fstream.h>
+#include<conio.h>
+
+struct stu
+{ int rollno;
+ char name[25],std[4];
+ float marks;
+char grade;
+};
+void in()
+{stu s1;
+ ofstream f("stu.dat",ios::binary);
+ char ch='y';
+ while(ch=='y')
+ { cout<<"\n\nEnter the record:\n";
+ cout<<"rollno. :";
+ cin>>s1.rollno;
+ cout<<"Name:";
+ cin>>s1.name;
+ cout<<"std:";
+ cin>>s1.std;cout<<"Marks:";
+ cin>>s1.marks;
+ cout<<"Grade:";
+ cin>>s1.grade;
+ f.write((char*)&s1,sizeof(stu));
+ cout<<"Do you want to enter records into the file :";
+cin>>ch;
+}
+}
+void search()
+{ stu s1;
+ ifstream fin("stu.dat",ios::in|ios::binary);
+  int rno,I=0;
+ cout<<"\nEnter the roll no to be searched:";
+ cin>>rno;
+while(fin)
+{ fin.read((char*)&s1,sizeof(stu));
+ if(s1.rollno==rno)
+{ cout<<"Record found\n";
+ cout<<"rollno.:"<<s1.rollno<<endl<<"Name:"<<s1.name<<endl<<"std:"<<s1.std<<endl<<"Marks:"<<s1.marks<<endl<<"Grade:"<<s1.grade<<endl;
+I=1;break;}
+}
+if(I==0)
+cout<<"Record not found";
+}
+void out()
+{ stu s1;
+ ifstream f("stu.dat",ios::in|ios::binary);
+ while(f)
+{ f.read((char*)&s1,sizeof(stu));
+ cout<<"rollno.:"<<s1.rollno<<endl<<"Name:"<<s1.name<<endl<<"std:"<<s1.std<<endl<<"Marks:"<<s1.marks<<endl<<"Grade:"<<s1.grade<<endl;
+}
+}
+void main()
+{ clrscr();
+cout<<"\t\t BINARY FILE OPERATION-SEARCH";
+ in();
+search();
+getch();
+}
