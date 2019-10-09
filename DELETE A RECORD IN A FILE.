@@ -1,0 +1,117 @@
+
+
+#include<fstream.h>
+#include<conio.h>
+#include<stdio.h>
+
+class sport
+{ int s_no;
+ char s_name[10];
+ int fee;
+ public:
+  void get_info()
+{ cout<<"Enter the serial no.:";
+  cin>>s_no;
+ cout<<"Enter the name : ";
+ cin>>s_name;
+cout<<"Enter the fees :";
+cin>>fee;
+}
+void show_info()
+{ cout<<"The serial no. is:";
+ cout<<s_no<<endl;
+ cout<<"The name is :";
+ cout<<s_name<<endl;
+ cout<<"The fees is :";
+ cout<<fee<<endl;
+}
+int rets_no()
+{ return s_no; }
+};
+void write()
+{ sport s;
+  ofstream fout;
+ fout.open("sports.txt",ios::app|ios::binary);
+ if(!fout)
+ { cout<<"Cannot open file";
+ getch();
+ }
+ s.get_info();
+ fout.write((char*)&s,sizeof(s));
+ fout.close();
+}
+void deleteof()
+{ sport s;
+ int no1,no2;
+ char found='n';
+ ofstream fout;
+ ifstream fin;
+ fin.open("sports.txt",ios::binary);
+ fout.open("temp.txt",ios::binary);
+ if(!fin)
+{ cout<<"Cannot open file"; getch(); }
+ cout<<"Enter serial no to be deleted : ";
+ cin>>no1;
+ fin.seekg(0);
+ while(fin.read((char*)&s,sizeof(s)))
+ { no2=s.rets_no();
+ if(no1!=no2)
+   fout.write((char*)&s,sizeof(s));
+ if(no1==no2)
+ found='y';
+}
+ if(found=='n')
+  cout<<"Record does not exist";
+ else
+  cout<<"Record deleted !!!"<<endl;
+ fin.close();
+ fout.close();
+ remove("sports.txt");
+ rename("temp.txt","sports.txt");
+ getch();
+}
+void read()
+{ sport s;
+  ifstream fin;
+ fin.open("sports.txt",ios::binary);
+  if(!fin)
+ { cout<<"Cannot open file"; getch(); }
+  fin.seekg(0);
+ while(fin.read((char*)&s,sizeof(s)))
+   s.show_info();
+ fin.close();
+  getch();
+}
+ void menu()
+{
+ cout<<"\nMENU:"<<endl;
+  cout<<"1) Append"<<endl;
+ cout<<"2) Delete"<<endl;
+ cout<<"3) Read"<<endl;
+ cout<<"4) Exit"<<endl;
+  cout<<"Enter your choice : ";
+}
+void main()
+{
+ clrscr();
+ int choice;
+ cout<<"\t\tDELETE A RECORD IN  A FILE\n";
+ do
+ { menu();
+   cin>>choice;
+ switch(choice)
+{ case 1:write();
+  break;
+ case 2:deleteof();
+  break;
+ case 3:read();
+   break;
+ case 4:cout<<"Quitting!!";
+   break;
+ default:cout<<"Enter proper option!!!";
+ getch();
+ break;
+}
+}while(choice!=4);
+getch();
+}
