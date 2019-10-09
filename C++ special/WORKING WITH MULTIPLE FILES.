@@ -1,0 +1,84 @@
+
+
+#include<fstream.h>
+#include<process.h>
+#include<conio.h>
+
+void write()
+{ char a[200];
+ ofstream f("old.txt",ios::app);
+cout<<"\nEnter text(.to stop)\n";
+cin.getline(a,200,'.');
+f<<a;
+f.close();
+return;
+}
+void viewold()
+{ char a[200];
+ ifstream o("old.txt",ios::nocreate);
+ if(!o)
+{
+  cout<<"\nFile old.txt does not exist\n";getch();return;}
+while(!o.eof())
+{
+ o.getline(a,200);cout<<a<<'\n';}
+o.close();
+getch();
+}
+void viewnew()
+{ char a[200];
+ ifstream o("new.txt",ios::nocreate);
+ if(!o)
+{
+  cout<<"\nFile new.txt does not exist\n";getch();return;}
+while(!o.eof())
+{
+ o.getline(a,200);cout<<a<<'\n';}
+o.close();
+getch();
+}
+
+void copy()
+{ char a[50];
+ ifstream o("old.txt",ios::nocreate);
+if(!o)
+{
+  cout<<"\nFile new.txt does not exist\n";getch();return;}
+
+ofstream n("new.txt",ios::trunc);
+while(!o.eof())
+{ o>>a;
+if(a[0]=='a'||a[0]=='e' ||a[0]=='i'||a[0]=='o'||a[0]=='u'||a[0]=='A'||a[0]=='E' ||a[0]=='I'||a[0]=='O'||a[0]=='U')
+n<<a<<" ";
+}
+o.close();
+n.close();
+cout<<"Task successfully completed\n";
+getch();
+}
+void main()
+{
+clrscr();
+char ch,choice;
+cout<<"\tWORKING WITH MULTIPLE FILES\n";
+do
+{cout<<"\nMENU:\n\t1:Write into file\n\t2:Copy words starting with vowels\n\t3:View original file\n\t4:View new file\n\t5:Exit\n";
+cout<<"\nEnter your choice:";
+cin>>ch;
+switch(ch)
+{case '1':write();
+break;
+case '2':copy();
+break;
+case '3':viewold();
+break;
+case '4':viewnew();
+break;
+case '5':exit(0);
+default:cout<<"\nSelect proper option\n";
+}
+cout<<"\nDo you want to continue?(y/n):";
+cin>>choice;
+}while(choice=='y');
+getch();
+}
