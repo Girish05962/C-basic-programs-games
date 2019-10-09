@@ -1,0 +1,131 @@
+
+
+#include<fstream.h>
+#include<conio.h>
+#include<stdio.h>
+#include<string.h>
+
+class telephone_directory
+{ char name[10];
+  char address[20];
+  char telephone_no[11];
+ public:
+  void get_info()
+{ cout<<"Enter the name :";
+  gets(name);
+  cout<<"Enter the address :";
+ gets(address);
+ cout<<"Enter the phone no. :";
+ cin>>telephone_no;
+}
+ void show_info()
+{ cout<<"The name is: ";
+ cout<<name<<endl;
+ cout<<"The address is :";
+ cout<<address<<endl;
+ cout<<"The telephone no. is:";
+ cout<<telephone_no<<endl;
+}
+ int rettel_no(char no[11])
+ { if(strcmp(telephone_no,no)==0)
+    return 0;
+   else
+     return -1;
+}
+void getadd(char name[20])
+{ strcpy(address,name); }
+};
+void write()
+{   telephone_directory s;
+    ofstream fout;
+ fout.open("TEL.dat",ios::app|ios::binary);
+ if(!fout)
+{ cout<<"cannot open file"; getch(); }
+s.get_info();
+ fout.write((char*)&s,sizeof(s));
+ getch();
+ fout.close();
+}
+void modify()
+{  telephone_directory s;
+ char no1[11];
+ int size=sizeof(s);
+ char found='n';
+ char new_add[20];
+ cout<<"Enter telephone no to be modified :";
+ cin>>no1;
+ cout<<"Enter the new address:";
+ cin>>new_add;
+ fstream fillin;
+ fillin.open("TEL.dat",ios::in|ios::out|ios::ate|ios::binary);
+ if(!fillin)
+ { cout<<"Cannot open file";
+   getch();
+ }
+int check;
+ fillin.seekg(0);
+ while(fillin.read((char*)&s,sizeof(s)))
+ {check=s.rettel_no(no1);
+  if(check==0)
+ { s.getadd(new_add);
+   fillin.seekg(-size,ios::cur);
+   fillin.write((char*)&s,sizeof(s));
+   cout<<"The modified record is :"<<endl;
+    s.show_info();
+  }
+ if(check==0)
+ found='y';
+ }
+ if(found=='n')
+  cout<<"Record does not exist ";
+ fillin.close();
+ getch();
+}
+ void read()
+{ telephone_directory s;
+ char no1[11];
+ ifstream fin;
+ fin.open("TEL.dat",ios::binary);
+ if(!fin)
+ { cout<<"Cannot open file"; getch(); }
+ int check;
+ fin.seekg(0);
+ while(fin.read((char*)&s,sizeof(s)))
+  s.show_info();
+ fin.close();
+ getch();
+}
+ void menu()
+{
+ cout<<"\n\nMENU : "<<endl;
+  cout<<"1)Write "<<endl;
+  cout<<"2)Read "<<endl;
+  cout<<"3) Modify"<<endl;
+  cout<<"4)Exit "<<endl<<endl;
+  cout<<"Enter your choice :";
+}
+void main()
+{   clrscr();
+    int choice;
+    int y;
+    cout<<"\t MODIFY A RECORD IN A FILE";
+    do
+   { menu();
+     cin>>choice;
+     switch(choice)
+{  case 1:write();
+   break;
+  case 2:read();
+  break;
+  case 3:modify();
+   break;
+  case 4:cout<<"Quitting !!";
+   break;
+ default:cout<<"Enter proper option!!!";
+  getch();
+break;
+}
+}while(choice!=4);
+getch();
+}
+
